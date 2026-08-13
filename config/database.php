@@ -2,10 +2,18 @@
 // config/database.php
 
 class Database {
-    private $host = "localhost";
-    private $db_name = "desa_jayapura";
-    private $username = "root";
-    private $password = "";
+    private $host;
+    private $db_name;
+    private $username;
+    private $password;
+
+    public function __construct() {
+        // Menggunakan environment variables jika ada (untuk Vercel), jika tidak gunakan default lokal
+        $this->host = getenv('DB_HOST') ?: "localhost";
+        $this->db_name = getenv('DB_NAME') ?: "desa_jayapura";
+        $this->username = getenv('DB_USER') ?: "root";
+        $this->password = getenv('DB_PASS') ?: "";
+    }
     public $conn;
 
     public function getConnection() {
